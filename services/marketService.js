@@ -12,13 +12,14 @@ function analyzeMarketData(data) {
   */
 
   const analyzedData = data.reduce(
-    (accumulator, currentValue) => {
+    (accumulator, currentValue, index) => {
       const { p, q, f, l, T } = currentValue;
       if (accumulator.lowest.price > p || accumulator.lowest.price === null) {
         accumulator.lowest.price = p;
         accumulator.lowest.quantity = q;
         accumulator.lowest.firstTradeId = f;
         accumulator.lowest.lastTradeId = l;
+        accumulator.lowest.time = T;
       }
 
       if (accumulator.highest.price < p || accumulator.highest.price === null) {
@@ -26,6 +27,19 @@ function analyzeMarketData(data) {
         accumulator.highest.quantity = q;
         accumulator.highest.firstTradeId = f;
         accumulator.highest.lastTradeId = l;
+        accumulator.highest.time = T;
+      }
+
+      if (index === 0) {
+        accumulator.priceAtStartTime = p;
+      }
+
+      if (index === data.length - 1) {
+        accumulator.priceAtEndTime = p;
+        accumulator.priceTrend =
+          accumulator.priceAtEndTime - accumulator.priceAtStartTime > 0
+            ? "Increase"
+            : "Decrease";
       }
 
       return accumulator;
@@ -33,7 +47,7 @@ function analyzeMarketData(data) {
     { lowest: { price: null }, highest: { price: null } }
   );
 
-  console.log(analyzedData);
+  return analyzedData;
 }
 
 async function getHistoricalMarketData(symbol, timeRange) {
