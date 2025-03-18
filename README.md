@@ -16,3 +16,6 @@ Tests can be run by command bleow
 ```bash
 npm test
 ```
+
+# Env
+.env file can be created to setup port. If port is not provided it will be set up to 3000 by default
