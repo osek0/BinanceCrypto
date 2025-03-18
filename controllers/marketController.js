@@ -10,7 +10,7 @@ function getHistoricalMarketData(req, res) {
     res.status(400).send("No timeRange provided");
   }
 
-  marketService.getHistoricalMarketData();
+  res.send(marketService.getHistoricalMarketData());
 }
 
 export default { getHistoricalMarketData };
