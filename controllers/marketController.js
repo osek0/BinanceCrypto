@@ -1,12 +1,16 @@
+import marketService from "../services/marketService.js";
+
 function getHistoricalMarketData(req, res) {
   const {symbol, timeRange} = req.body;
   if (!symbol) {
-    res.statuse(400).send("No crypto symbol provided");
+    res.status(400).send("No crypto symbol provided");
   }
 
   if (!timeRange) {
-    res.statuse(400).send("No timeRange provided");
+    res.status(400).send("No timeRange provided");
   }
+
+  marketService.getHistoricalMarketData();
 }
 
 export default { getHistoricalMarketData };
