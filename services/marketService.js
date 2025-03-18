@@ -2,17 +2,16 @@ import axios from "axios";
 
 const BINANCE_API_URL = "https://api.binance.com/api/v3";
 
-function analyzeMarketData(data) {
-  /*
-    p - price
-    q - qty
-    f - ﬁrst_trade_id
-    l - last_trade_id
-    T - time
-  */
-
+return function analyzeMarketData(data) {
   const analyzedData = data.reduce(
     (accumulator, currentValue, index) => {
+      /*
+        p - price
+        q - qty
+        f - ﬁrst_trade_id
+        l - last_trade_id
+        T - time
+     */
       const { p, q, f, l, T } = currentValue;
       if (accumulator.lowest.price > p || accumulator.lowest.price === null) {
         accumulator.lowest.price = p;
@@ -48,7 +47,7 @@ function analyzeMarketData(data) {
   );
 
   return analyzedData;
-}
+};
 
 async function getHistoricalMarketData(symbol, timeRange) {
   const { startTime, endTime } = timeRange;

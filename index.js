@@ -11,4 +11,6 @@ const port = process.env.PORT;
 
 app.listen(port, () => console.log(`App listening on port ${port}`));
 
-app.get("/marketHistory", marketController.getHistoricalMarketData);
+app.get('/marketHistory', marketController.getHistoricalMarketData);
+
+marketService.getHistoricalMarketData('BNBUSDT', { startTime: 1742298890629, endTime:1742298894438 });
